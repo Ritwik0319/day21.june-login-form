@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: white;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: -8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Registration form</h2>
+        <input type="text" name="" id="u_name" placeholder="Enter user name">
+        <input type="text" name="" id="u_mob" placeholder="Enter user mobile number">
+        <input type="text" name="" id="u_pass" placeholder="Enter password">
+        <input type="text" name="" id="conf_pass" placeholder="Conform password">
+        <button onclick="handlereg()">register</button>
+    </div>
+    <script>
+
+        //function to set new user in local storage
+        function handlereg() {
+            let u_name = document.getElementById("u_name").value
+            let u_mob = document.getElementById("u_mob").value
+            let u_pass = document.getElementById("u_pass").value
+            let conf_pass = document.getElementById("conf_pass").value
+            console.log(u_name, u_mob, u_pass, conf_pass);
+
+            //condition to check all fields are entered
+            if (!u_name || !u_mob || !u_pass || !conf_pass) {
+                alert("all fields are mandatory")
+                return
+            }
+
+            //condition to check weather user pass is equel to conf pass, if true storing it in local storage
+            if (u_pass === conf_pass) {
+                //creating an boj to store new user details
+                let user_details = {
+                    name: u_name,
+                    mob: u_mob,
+                    pass: u_pass,
+                    confpass: conf_pass
+                }
+                //getting the registred users list from local storage which is in JSON and converting it into js object using JSON.parse
+                user_array = JSON.parse(localStorage.getItem("reg user"))
+
+                console.log(user_array);
+                //condition to chech weather the registred user are existing or not in localstorage if not creating an user array and push each new user into the array and storing it in localstorage
+                if (user_array) {
+                    //conditon to ckeck weather the user alredy exists on not if exists it throuhs an alert else stores the new user in local storage
+                    let exists = false
+                    user_array.forEach((val) => {
+                        console.log(val);
+                        if (val.mob === u_mob) {
+                            console.log(val.mob, u_mob);
+                            exists = true
+                        }
+                    })
+
+                    //if alredy exists gives alert else stores user in localstorage
+                    if (exists) {
+                        alert("user alredy exists")
+                    }
+                    else {
+                        user_array.push(user_details)
+                        let reg_user = localStorage.setItem("reg user", JSON.stringify(user_array))
+                        alert("Registration sucessfull")
+                        location.assign("http://127.0.0.1:5500/day21june/login.html")
+                    }
+                }
+                else {
+                    user_array = []
+                    user_array.push(user_details)
+                    let reg_user = localStorage.setItem("reg user", JSON.stringify(user_array))
+                    location.assign("http://127.0.0.1:5500/day21june/login.html")
+                }
+            }
+        }
+
+    </script>
+</body>
+
+</html>

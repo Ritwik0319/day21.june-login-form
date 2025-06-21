@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: white;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: -8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Login form</h2>
+        <input type="text" name="" id="u_name" placeholder="Enter user name or mobile number">
+        <input type="text" name="" id="u_pass" placeholder="Enter password">
+        <button onclick="handlelogin()">Login</button>
+    </div>
+
+    <script>
+        let atempts = 3
+        function handlelogin() {
+            if (atempts > 0) {
+                let u_name = document.getElementById("u_name").value
+                let u_pass = document.getElementById("u_pass").value
+                let reg_users = JSON.parse(localStorage.getItem("reg user"))
+                let is_login = false
+                reg_users.forEach((val) => {
+                    if ((val.name === u_name || val.mob === u_name) && val.pass === u_pass) {
+                        is_login = true
+                        alert("sucessfully logined")
+                        let active_user = sessionStorage.setItem("active user", JSON.stringify(true))
+                        setTimeout(() => {
+                            active_user = sessionStorage.setItem("active user", JSON.stringify(false))
+                        }, 1000 * 10)
+                        // location.assign("http://127.0.0.1:5500/day13june/index.html")
+                    }
+                })
+                if (!is_login) {
+                    alert("Invalid credentials")
+                    // location.assign("http://127.0.0.1:5500/day21june/reg.html")
+                    atempts--
+                }
+                console.log(atempts);
+            }
+            else {
+                alert("plese try after 30 sec")
+                setTimeout(() => {
+                    atempts = 30
+                }, 1000 * 30 * 60)
+            }
+        }
+
+
+
+    </script>
+</body>
+
+</html>
