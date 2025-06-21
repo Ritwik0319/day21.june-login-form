@@ -49,6 +49,7 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            margin: 10px 0;
         }
 
         button:hover {
@@ -69,6 +70,7 @@
         <input type="text" name="" id="u_name" placeholder="Enter user name or mobile number">
         <input type="text" name="" id="u_pass" placeholder="Enter password">
         <button onclick="handlelogin()">Login</button>
+        <button onclick="handleback()">Register</button>
     </div>
 
     <script>
@@ -93,7 +95,6 @@
                 if (!is_login) {
                     atempts--
                     alert(`Invalid credentials,you have only ${atempts} attempts`)
-                    location.assign("http://127.0.0.1:5500/day21june/reg.html")
                 }
                 console.log(atempts);
             }
@@ -105,6 +106,10 @@
             }
         }
 
+        function handleback(){
+            window.open("http://127.0.0.1:5500/day21june/reg.html","_self")
+            
+        }
 
 
     </script>
