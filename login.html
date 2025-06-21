@@ -87,13 +87,13 @@
                         setTimeout(() => {
                             active_user = sessionStorage.setItem("active user", JSON.stringify(false))
                         }, 1000 * 10)
-                        // location.assign("http://127.0.0.1:5500/day13june/index.html")
+                        location.assign("http://127.0.0.1:5500/day13june/index.html")
                     }
                 })
                 if (!is_login) {
-                    alert("Invalid credentials")
-                    // location.assign("http://127.0.0.1:5500/day21june/reg.html")
                     atempts--
+                    alert(`Invalid credentials,you have only ${atempts} attempts`)
+                    location.assign("http://127.0.0.1:5500/day21june/reg.html")
                 }
                 console.log(atempts);
             }
